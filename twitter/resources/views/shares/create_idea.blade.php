@@ -4,7 +4,7 @@
 </div> --}}
 
 <div class="row">
-    <form action="{{ route('idea.create') }}" method="post">
+    <form action="{{ route('idea.store') }}" method="post">
         @csrf
         <div class="mb-3">
             <textarea name="idea" class="form-control" id="idea" rows="3"></textarea>
