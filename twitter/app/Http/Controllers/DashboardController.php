@@ -8,9 +8,16 @@ use App\Models\User;
 
 class DashboardController extends Controller
 {
+
     public function index(){
+        $ideas = Idea::orderBy("created_at","DESC");
+        if(request()->has('search')){
+            $ideas = $ideas->where('content','like' , '%'. request()->get('search','').'%');
+            dump($ideas);
+        }
+
         return view('dashboard',[
-            'ideas' => Idea::orderBy("created_at","DESC")->paginate(3)
+            'ideas' => $ideas->paginate(3)
         ]);
     }
 }
