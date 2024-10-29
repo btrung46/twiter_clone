@@ -13,7 +13,6 @@ class DashboardController extends Controller
         $ideas = Idea::orderBy("created_at","DESC");
         if(request()->has('search')){
             $ideas = $ideas->where('content','like' , '%'. request()->get('search','').'%');
-            dump($ideas);
         }
 
         return view('dashboard',[
