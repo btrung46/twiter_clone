@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
@@ -31,5 +32,15 @@ Route::get('/ideas/{idea}/edit',[IdeaController::class , 'edit_idea'])->name('id
 Route::put('/ideas/{idea}',[IdeaController::class , 'update_idea'])->name('idea.update');
 
 Route::post('/ideas{idea}',[CommentController::class , 'create_commment']) ->name('idea.comments.store');
+
+Route::post('/register',[AuthController::class , 'store'])->name('register');
+
+Route::get('/register',[AuthController::class , 'register']);
+
+Route::post('/login',[AuthController::class , 'authenticate'])->name('login');
+
+Route::get('/login',[AuthController::class , 'login']);
+
+Route::post('/logout',[AuthController::class , 'logout'])->name('logout');
 
 Route::get('/profile',[ProfileController::class , 'index']);

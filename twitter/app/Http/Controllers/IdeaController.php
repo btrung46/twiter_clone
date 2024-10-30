@@ -7,12 +7,10 @@ use App\Models\Idea;
 class IdeaController extends Controller
 {
     public function create_idea(){
-        request()->validate([
-            'idea'=> 'required|min:3|max:240'
+        $valid = request()->validate([
+            'content'=> 'required|min:3|max:240'
         ]);
-        $idea = Idea::create([
-            'content' =>request()->get('idea')
-        ]);
+        $idea = Idea::create($valid);
         return redirect()->route('dashboard')->with('success','idea create successfully!!!');
     }
     public function delete_idea(Idea $id){
@@ -28,10 +26,10 @@ class IdeaController extends Controller
         return view('idea.show_idea',compact('idea','editting'));
     }
     public function update_idea(Idea $idea){
-        request()->validate([
+        $valid= request()->validate([
             'content'=> 'required|min:3|max:240'
         ]);
-        $idea ->content = request()->get('content','');
+        $idea ->content = $valid['content'];
         $idea->save();
 
         return redirect()->route('idea.show',$idea->id)->with('success','idea updated successfully!!!');
