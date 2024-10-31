@@ -12,6 +12,7 @@ class CommentController extends Controller
             'comment' => 'required|min:1|max:240'
         ]);
         $comment = new Comment();
+        $comment->user_id = auth()->id();
         $comment->idea_id = $idea->id;
         $comment->comment = $valid['comment'];
         $comment->save();

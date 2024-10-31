@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\ProfileController;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,28 +20,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[DashboardController::class , 'index'])->name("dashboard");
+Route::get('/', [DashboardController::class, 'index'])
+    ->name('dashboard')
+    ->middleware('auth');
 
-Route::post('/ideas',[IdeaController::class , 'create_idea']) ->name('idea.store');
+Route::group(['prefix' => 'ideas/', 'as' => 'idea.','middleware' => 'auth'],function () {
+    Route::post('/', [IdeaController::class, 'create_idea'])
+        ->name('store');
 
-Route::delete('/ideas/{id}',[IdeaController::class , 'delete_idea']) ->name('idea.destroy');
+    Route::delete('/{idea}', [IdeaController::class, 'delete_idea'])
+        ->name('destroy');
 
-Route::get('/ideas/{idea}',[IdeaController::class , 'show_idea'])->name('idea.show');
+    Route::get('/{idea}', [IdeaController::class, 'show_idea'])
+        ->name('show');
 
-Route::get('/ideas/{idea}/edit',[IdeaController::class , 'edit_idea'])->name('idea.edit');
+    Route::get('/{idea}/edit', [IdeaController::class, 'edit_idea'])
+        ->name('edit');
 
-Route::put('/ideas/{idea}',[IdeaController::class , 'update_idea'])->name('idea.update');
+    Route::put('/{idea}', [IdeaController::class, 'update_idea'])
+        ->name('update');
 
-Route::post('/ideas{idea}',[CommentController::class , 'create_commment']) ->name('idea.comments.store');
+    Route::post('/{idea}', [CommentController::class, 'create_commment'])
+        ->name('comments.store');
+});
 
-Route::post('/register',[AuthController::class , 'store'])->name('register');
-
-Route::get('/register',[AuthController::class , 'register']);
-
-Route::post('/login',[AuthController::class , 'authenticate'])->name('login');
-
-Route::get('/login',[AuthController::class , 'login']);
-
-Route::post('/logout',[AuthController::class , 'logout'])->name('logout');
-
-Route::get('/profile',[ProfileController::class , 'index']);
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->middleware('auth');
