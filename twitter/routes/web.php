@@ -44,6 +44,4 @@ Route::group(['prefix' => 'ideas/', 'as' => 'idea.','middleware' => 'auth'],func
         ->name('comments.store');
 });
 
-Route::get('/profile', [ProfileController::class, 'index'])
-    ->middleware('auth')
-    ->middleware('auth');
+Route::resource('user', ProfileController::class)->only('show','edit','update')->middleware('auth');

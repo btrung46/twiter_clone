@@ -11,7 +11,7 @@
             <ul class="navbar-nav">
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">{{ Auth::user()->name }}</a>
+                        <a class="nav-link" href="{{route('user.show',Auth::user()->id )}}">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <form action="{{route('logout')}}" method="post">

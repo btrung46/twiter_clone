@@ -13,7 +13,7 @@
         @foreach ($ideas as $idea)
             @include('shares.card-idea')
         @endforeach
-        <div class="mt-3"> {{$ideas ->links()}}</div>
+        <div class="mt-3"> {{$ideas ->withQueryString()->links()}}</div>
 
     </div>
 
