@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'bio',
+        'image',
         'password',
     ];
 
@@ -42,9 +44,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function comments(){
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->latest();
     }
     public function idea(){
-        return $this->hasMany(Idea::class);
+        return $this->hasMany(Idea::class)->latest();
     }
+    public function followings(){
+        return $this->belongsToMany(User::class,'follower_user',foreignPivotKey: 'follower_id',relatedPivotKey: 'user_id')->withTimestamps();
+    }
+    // follower_id là id của mk, nếu lấy danh sách mk đang theo dỗi thì mk là người theo
+    // chỉ cần lấy danh sách người theo dõi có id trung với id của mk
+    public function followers(){
+        return $this->belongsToMany(User::class,'follower_user',foreignPivotKey: 'user_id',relatedPivotKey: 'follower_id')->withTimestamps();
+    }
+    // người lại với followings
+    public function follow(User $user){
+        return $this->followings()->where('user_id',$user->id)->exists();
+    }
+    public function getImageURL(){
+        if($this->image){
+            return url('storage/' . $this->image);
+        }
+        return "https://api.dicebear.com/6.x/fun-emoji/svg?seed={$this->name}";
+    }
+
 }
