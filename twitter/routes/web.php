@@ -47,4 +47,4 @@ Route::group(['prefix' => 'ideas/', 'as' => 'idea.','middleware' => 'auth'],func
 Route::post('/user/{user}/follow',[FollowController::class,'follow'])->name('user.follow')->Middleware('auth');
 Route::post('/user/{user}/unfollow',[FollowController::class,'unfollow'])->name('user.unfollow')->Middleware('auth');
 
-Route::resource('user', ProfileController::class)->only('show','edit','update')->middleware('auth');
+Route::resource('user', ProfileController::class)->only( 'show','edit','update')->middleware('auth');

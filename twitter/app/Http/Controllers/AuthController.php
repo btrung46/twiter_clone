@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Welcomemail;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Mail;
 class AuthController extends Controller
 {
     public function register(){
@@ -21,7 +23,8 @@ class AuthController extends Controller
             'email' => $valid['email'],
             'password' => Hash::make($valid['password'])
         ]);
-        return redirect()->route('dashboard')->with('success','Acount created successfully!!!');
+        Mail::to($user->email)->send(new Welcomemail($user) );
+        return redirect()->route('login')->with('success','Acount created successfully!!! please login');
     }
 
     public function login(){
