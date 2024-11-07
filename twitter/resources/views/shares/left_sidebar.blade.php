@@ -8,6 +8,6 @@
         </ul>
     </div>
     <div class="card-footer text-center py-2">
-        <a class="btn btn-link btn-sm" href="#">View Profile </a>
+        <a class="btn btn-link btn-sm" href="{{route('user.show',Auth::user()->id )}}">View Profile </a>
     </div>
 </div>

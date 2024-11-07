@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\IdeaController;
+use App\Http\Controllers\LikeIdeaController;
 use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
@@ -46,5 +47,7 @@ Route::group(['prefix' => 'ideas/', 'as' => 'idea.','middleware' => 'auth'],func
 });
 Route::post('/user/{user}/follow',[FollowController::class,'follow'])->name('user.follow')->Middleware('auth');
 Route::post('/user/{user}/unfollow',[FollowController::class,'unfollow'])->name('user.unfollow')->Middleware('auth');
+
+Route::post('/ideas/{idea}/toggle-like', [LikeIdeaController::class, 'toggleLike'])->name('ideas.toggleLike');
 
 Route::resource('user', ProfileController::class)->only( 'show','edit','update')->middleware('auth');
