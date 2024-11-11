@@ -21,7 +21,7 @@
         </div>
         <div class="px-2 mt-4">
             <h5 class="fs-5"> About : </h5>
-            <p class="fs-6 fw-light">
+            <p class="fs-6 fw-bold">
                 {{ $user->bio }}
             </p>
             <div class="d-flex justify-content-start">

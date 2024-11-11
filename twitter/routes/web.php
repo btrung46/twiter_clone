@@ -4,11 +4,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\IdeaController;
 use App\Http\Controllers\LikeIdeaController;
 use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Middleware;
+use App\Http\Controllers\Admin\DashboardController as AdminDashBoardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,4 +52,7 @@ Route::post('/user/{user}/unfollow',[FollowController::class,'unfollow'])->name(
 
 Route::post('/ideas/{idea}/toggle-like', [LikeIdeaController::class, 'toggleLike'])->name('ideas.toggleLike');
 
+Route::get('/feed',FeedController::class)->middleware('auth')->name('feed');
+//admin
+Route::get('/admin',[AdminDashBoardController::class, 'index'])->middleware('auth','admin')->name('admin.dashboard');
 Route::resource('user', ProfileController::class)->only( 'show','edit','update')->middleware('auth');

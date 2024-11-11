@@ -51,10 +51,11 @@
                 <div class="d-flex justify-content-between">
                     @include('shares.like_button')
                     <div>
-                        <span class="fs-6 fw-light text-muted"> <span class="fas fa-clock"> </span>
-                            {{ $idea->created_at }} </span>
+                        <span class="fs-6 fw-bold text-muted"> <span class="fas fa-clock"> </span>
+                            {{ $idea->created_at->diffForHumans() }} </span>
                     </div>
                 </div>
+                <hr>
                 @include('shares.comment_box')
             @endif
 

@@ -10,6 +10,11 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 @auth
+                    @if (Auth::user()->is_admin)
+                    <li class="nav-item">
+                        <a class="{{(Route::currentRouteName() === 'admin.dashboard') ? 'active' : '' }} nav-link" href="{{route('admin.dashboard',Auth::user()->id )}}">Admin</a>
+                    </li>
+                    @endif
                     <li class="nav-item">
                         <a class="{{(Route::currentRouteName() === 'user.show') ? 'active' : '' }} nav-link" href="{{route('user.show',Auth::user()->id )}}">{{ Auth::user()->name }}</a>
                     </li>

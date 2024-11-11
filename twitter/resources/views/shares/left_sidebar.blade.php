@@ -5,6 +5,10 @@
                 <a class="{{(Request::routeIs('dashboard')) ? 'text-white bg-primary rounded' : ''}} nav-link" href="{{route('dashboard')}}">
                     <span>Home</span></a>
             </li>
+            <li class="nav-item">
+                <a class="{{(Request::routeIs('feed')) ? 'text-white bg-primary rounded' : ''}} nav-link" href="{{route('feed')}}">
+                    <span>feed</span></a>
+            </li>
         </ul>
     </div>
     <div class="card-footer text-center py-2">
