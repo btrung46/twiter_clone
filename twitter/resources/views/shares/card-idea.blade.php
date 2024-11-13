@@ -11,21 +11,17 @@
                             </a></h5>
                     </div>
                 </div>
-                @if ($idea->user->id === Auth::user()->id)
-                    <form action="{{ route('idea.destroy', $idea->id) }}" method="post">
-                        @method('delete')
-                        @csrf
-                        <a href="{{ route('idea.show', $idea->id) }}">View</a>
-                        <a href="{{ route('idea.edit', $idea->id) }}">Edit</a>
-                        <button class="btn btn-danger btn-sm"> X </button>
-                    </form>
-                @else
-                    <form action="{{ route('idea.destroy', $idea->id) }}" method="post">
-                        @method('delete')
-                        @csrf
-                        <a href="{{ route('idea.show', $idea->id) }}">View</a>
-                    </form>
-                @endif
+                <div class="d-flex">
+                    <a href="{{ route('idea.show', $idea->id) }}">View</a>
+                    @can('update', $idea)
+                        <a class="ms-2" href="{{ route('idea.edit', $idea->id) }}">Edit</a>
+                        <form action="{{ route('idea.destroy', $idea->id) }}" method="post">
+                            @method('delete')
+                            @csrf
+                            <button class="ms-1 btn btn-danger btn-sm"> X </button>
+                        </form>
+                    @endcan
+                </div>
             </div>
         </div>
         <div class="card-body">

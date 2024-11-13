@@ -14,14 +14,13 @@ class ProfileController extends Controller
         return view('users.profile',compact('user','edit','ideas'));
     }
     public function edit(User $user){
+        $this->authorize('update',$user);
         $edit = true;
         $ideas = $user->idea()->paginate(3);
         return view('users.profile_edit',compact('user','edit','ideas'));
     }
     public function update(User $user){
-        if(auth()->id() !== $user->id){
-            abort(404);
-        }
+        $this->authorize('update',$user);
         $valid= request()->validate([
             'name'=> 'required|min:3|max:40',
             'bio'=> 'nullable|min:3|max:250',

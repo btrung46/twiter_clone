@@ -54,5 +54,5 @@ Route::post('/ideas/{idea}/toggle-like', [LikeIdeaController::class, 'toggleLike
 
 Route::get('/feed',FeedController::class)->middleware('auth')->name('feed');
 //admin
-Route::get('/admin',[AdminDashBoardController::class, 'index'])->middleware('auth','admin')->name('admin.dashboard');
+Route::get('/admin',[AdminDashBoardController::class, 'index'])->middleware('auth','can:admin')->name('admin.dashboard');
 Route::resource('user', ProfileController::class)->only( 'show','edit','update')->middleware('auth');

@@ -12,12 +12,11 @@
                 </div>
             </div>
 
-            @if ($user->id === Auth::user()->id)
+            @can('update', $user)
                 <div>
                     <a href="{{ route('user.edit', $user->id) }}">edit</a>
                 </div>
-            @endif
-
+            @endcan
         </div>
         <div class="px-2 mt-4">
             <h5 class="fs-5"> About : </h5>
@@ -32,7 +31,7 @@
                 <a href="#" class="fw-light nav-link fs-6 me-3"> <span class="fas fa-heart me-1">
                     </span> {{ $user->likes()->count() }} </a>
             </div>
-            @if ($user->id !== Auth::user()->id)
+            @if (Auth::user()->isNot($user))
                 @if (Auth::user()->follow($user))
                     <form action="{{ route('user.unfollow', $user->id) }}" method="post">
                         @csrf
