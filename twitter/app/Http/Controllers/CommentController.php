@@ -16,6 +16,11 @@ class CommentController extends Controller
         $comment->idea_id = $idea->id;
         $comment->comment = $valid['comment'];
         $comment->save();
-        return redirect()->route('idea.show',$idea->id)->with('success','comment created successfully!!!');
+        return redirect()->route('idea.show',parameters: $idea->id)->with('success','comment created successfully!!!');
+    }
+    public function delete(Idea $idea,Comment $comment){
+        $this->authorize('delete',$comment);
+        $comment->delete();
+        return redirect()->route('idea.show',parameters: $idea->id)->with('success','comment delete successfully!!!');
     }
 }

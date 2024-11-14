@@ -1,5 +1,5 @@
 @extends('Layout.layout')
-
+@section('title', 'Login')
 @section('context')
     <div class="row justify-content-center">
         @include('shares.success')

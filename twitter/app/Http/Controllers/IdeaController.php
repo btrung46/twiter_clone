@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IdeaRequest;
 use Illuminate\Http\Request;
 use App\Models\Idea;
 class IdeaController extends Controller
 {
-    public function create_idea(){
-        $valid = request()->validate([
-            'content'=> 'required|min:3|max:240'
-        ]);
+    public function create_idea(IdeaRequest $request){
+        $valid = $request->validated();
         $valid['user_id'] = auth()->id();
         $idea = Idea::create($valid);
         return redirect()->route('dashboard')->with('success','idea create successfully!!!');
@@ -28,11 +27,9 @@ class IdeaController extends Controller
         $editting = true;
         return view('idea.show_idea',compact('idea','editting'));
     }
-    public function update_idea(Idea $idea){
+    public function update_idea(Idea $idea,IdeaRequest $request){
         $this->authorize('update',$idea);
-        $valid= request()->validate([
-            'content'=> 'required|min:3|max:240'
-        ]);
+        $valid = $request->validated();
         $idea ->content = $valid['content'];
         $idea->save();
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRquest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Idea;
@@ -19,15 +20,13 @@ class ProfileController extends Controller
         $ideas = $user->idea()->paginate(3);
         return view('users.profile_edit',compact('user','edit','ideas'));
     }
-    public function update(User $user){
+    public function update(User $user,UserRquest $request){
         $this->authorize('update',$user);
-        $valid= request()->validate([
-            'name'=> 'required|min:3|max:40',
-            'bio'=> 'nullable|min:3|max:250',
-            'image' => 'image'
-        ]);
-        if(request()->has('image')){
-            $imagePath = request()->file('image')->store('Profile','public');
+
+        $valid = $request->validated();
+
+        if($request->has('image')){
+            $imagePath = $request->file('image')->store('Profile','public');
             $valid['image'] = $imagePath;
             Storage::disk('public')->delete($user->image  ?? '');
         }

@@ -1,5 +1,5 @@
 @extends('Layout.layout')
-
+@section('title', 'View Idea')
 @section('context')
 <div class="row">
     <div class="col-3">

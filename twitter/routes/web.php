@@ -46,6 +46,9 @@ Route::group(['prefix' => 'ideas/', 'as' => 'idea.','middleware' => 'auth'],func
 
     Route::post('/{idea}', [CommentController::class, 'create_commment'])
         ->name('comments.store');
+
+    Route::delete('/{idea}/{comment}', [CommentController::class, 'delete'])
+    ->name('comment.destroy');
 });
 Route::post('/user/{user}/follow',[FollowController::class,'follow'])->name('user.follow')->Middleware('auth');
 Route::post('/user/{user}/unfollow',[FollowController::class,'unfollow'])->name('user.unfollow')->Middleware('auth');

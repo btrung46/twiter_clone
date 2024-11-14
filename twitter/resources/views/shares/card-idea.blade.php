@@ -12,6 +12,7 @@
                     </div>
                 </div>
                 <div class="d-flex">
+                    
                     <a href="{{ route('idea.show', $idea->id) }}">View</a>
                     @can('update', $idea)
                         <a class="ms-2" href="{{ route('idea.edit', $idea->id) }}">Edit</a>

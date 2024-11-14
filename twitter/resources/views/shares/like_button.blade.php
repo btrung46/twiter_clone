@@ -2,10 +2,10 @@
 <button class="like-button fw-light nav-link fs-6" data-idea-id="{{ $idea->id }}">
     @if (Auth::user()->likeidea($idea))
         <span class="fas fa-heart me-1"></span>
-        <span id="likes-count-{{ $idea->id }}"> {{ $idea->likes()->count() }}</span>
+        <span id="likes-count-{{ $idea->id }}"> {{ $idea->likes_count }}</span>
     @else
         <span class="far fa-heart me-1"></span>
-        <span id="likes-count-{{ $idea->id }}">{{ $idea->likes()->count() }}</span>
+        <span id="likes-count-{{ $idea->id }}">{{ $idea->likes_count }}</span>
     @endif
 </button>
 

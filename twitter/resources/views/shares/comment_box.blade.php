@@ -17,17 +17,25 @@
                 alt="{{ $comment->user->name }}">
             <div class="w-100">
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('user.show', $comment->user->id) }}">{{ $comment->user->name }}
-                    </a>
+                    <a href="{{ route('user.show', $comment->user->id) }}">{{ $comment->user->name }}</a>
                     <small class="fs-5 fw-bold">{{ $comment->created_at->diffForHumans() }}</small>
                 </div>
                 <p class="fs-5 fw-bold">
                     {{ $comment->comment }}
                 </p>
             </div>
+            @can('delete', $comment)
+                <form action="{{ route('idea.comment.destroy', [$comment->idea->id, $comment->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="btn-sm">X</button>
+                </form>
+            @endcan
+
         </div>
+
     @empty
-    <hr>
-    <h4 class="text-center">no comment found</h4>
+        <hr>
+        <h4 class="text-center">no comment found</h4>
     @endforelse
 </div>
