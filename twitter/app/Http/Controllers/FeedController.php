@@ -13,12 +13,13 @@ class FeedController extends Controller
     {
         $follwingID = auth()->user()->followings()->pluck('user_id');
         $ideas = Idea::whereIn('user_id', $follwingID);
-        if(request()->has('search')){
-            $ideas = $ideas->where('content','like' , '%'. request()->get('search','').'%');
-        }
+        $ideas = Idea::when(request()->has('search'), function ($query) {
+            $query->search(request('search', ''));
+        })->orderBy('created_at', 'DESC')->paginate(3);
+
 
         return view('feed',[
-            'ideas' => $ideas->paginate(3)
+            'ideas' => $ideas
         ]);
     }
 }

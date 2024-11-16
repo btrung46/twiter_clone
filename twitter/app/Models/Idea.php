@@ -24,4 +24,8 @@ class Idea extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function scopeSearch($query, $search = '')
+    {
+        $query->where('content', 'like', '%' . $search . '%');
+    }
 }
