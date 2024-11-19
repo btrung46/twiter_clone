@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\User;
 
+use Cache;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
-        view()->share('Suggestions', User::withCount('idea')->orderBy('idea_count', 'DESC')->limit(5)->get());
+        \Debugbar::enable();
+
+
+        $Suggestions = Cache::remember('Suggestions',10,function(){
+            return User::withCount('idea')->orderBy('idea_count', 'DESC')->limit(5)->get();
+        });
+
+        View::share('Suggestions',$Suggestions);
     }
 }
