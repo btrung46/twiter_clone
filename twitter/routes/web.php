@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use GuzzleHttp\Middleware;
 use App\Http\Controllers\Admin\DashboardController as AdminDashBoardController;
 use App\Http\Controllers\Admin\IdeaController as AdminIdeaController;
+use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,9 @@ Route::middleware(['auth', 'can:admin'])
     ->as('admin.')
     ->group(function () {
         Route::get('/', [AdminDashBoardController::class, 'index'])->name('dashboard');
+        Route::delete('users/{user}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('/users', [UserController::class, 'index'])->name('users');
         Route::get('/ideas', [AdminIdeaController::class, 'index'])->name('ideas');
+        Route::resource('/comments', AdminCommentController::class)
+    ->only('index', 'destroy');
     });

@@ -13,6 +13,10 @@
                 <a class="{{(Request::routeIs('admin.ideas')) ? 'text-white bg-primary rounded' : ''}} nav-link" href="{{route('admin.ideas')}}">
                     <span>Idea</span></a>
             </li>
+            <li class="nav-item">
+                <a class="{{(Request::routeIs('admin.comments.index')) ? 'text-white bg-primary rounded' : ''}} nav-link" href="{{route('admin.comments.index')}}">
+                    <span>Comment</span></a>
+            </li>
         </ul>
     </div>
     <div class="card-footer text-center py-2">

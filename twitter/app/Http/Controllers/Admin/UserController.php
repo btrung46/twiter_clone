@@ -12,4 +12,8 @@ class UserController extends Controller
         $users = User::latest()->paginate(5);
         return view('admin.Users.index',compact('users'));
     }
+    public function destroy(User $user){
+        $user->delete();
+        return redirect()->route('admin.users')->with('success','User deleted successfull!!');
+    }
 }

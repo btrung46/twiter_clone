@@ -2,6 +2,7 @@
 @section('title', 'Admin user')
 @section('context')
     <div class="row">
+        @include('shares.success')
         <div class="col-3">
             @include('admin.shared.left_sidebar')
         </div>
@@ -20,12 +21,15 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{$user->id}}</td>
-                            <td>{{$user->name}}</td>
+                            <td><a href="{{ route('user.show', $user->id) }}">{{$user->name}}</a></td>
                             <td>{{$user->email}}</td>
                             <td>{{$user->created_at->toDateString()}}</td>
                             <td>
-                                <a href="{{ route('user.edit', $user->id) }}">edit</a>
-                                <a href="{{ route('user.show', $user->id) }}">View</a>
+                                <form action="{{route('admin.user.destroy', $user->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button>delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
